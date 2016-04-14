@@ -9,6 +9,8 @@ import android.widget.EditText;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -46,15 +48,16 @@ public class MainActivity extends AppCompatActivity {
         try {
             param.put(Keys.getInstance().USERNAME,user_name);
             param.put(Keys.getInstance().PASSWORD,password);
+            param.put("login","submit");
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        client.HTTPRequestGET("", param, new Response.Listener<JSONObject>() {
+        JsonObjectRequest loginRequest = client.HTTPRequestPOST("login_user.php", param, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
-                    Log.d("Pass",response.toString(4));
+                    Log.d("Pass", response.toString(4));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -65,6 +68,8 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("Error",error.getLocalizedMessage());
             }
         });
+
+        Volley.newRequestQueue(this).add(loginRequest);
     }
 
     private boolean validTextFields() {

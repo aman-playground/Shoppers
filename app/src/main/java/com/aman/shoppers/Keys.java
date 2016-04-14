@@ -10,8 +10,8 @@ public class Keys {
         return ourInstance;
     }
 
-    public String USERNAME = "username";
-    public String PASSWORD = "password";
+    public String USERNAME = "user";
+    public String PASSWORD = "pswd";
     private Keys() {
     }
 }

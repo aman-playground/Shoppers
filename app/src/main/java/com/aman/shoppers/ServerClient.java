@@ -12,7 +12,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class ServerClient {
-    private String baseURL = "http://127.0.0.1/shoppers/shops/config.php";
+    private String baseURL = "http://192.168.56.1/shoppers/";
 
     public JsonObjectRequest HTTPRequestGET(String url, JSONObject params, Response.Listener<JSONObject> listner, Response.ErrorListener errorListener) {
         JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.GET,getAbsoluteURL(url), params, listner, errorListener);
@@ -25,7 +25,8 @@ public class ServerClient {
     }
 
     private String getAbsoluteURL(String url) {
-        return baseURL + url;
+        String finalURL = baseURL + url;
+        return finalURL;
     }
 
 
