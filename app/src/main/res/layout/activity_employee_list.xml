@@ -7,17 +7,17 @@
     android:paddingLeft="0dp"
     android:paddingRight="0dp"
     android:paddingTop="0dp"
-    tools:context="com.aman.shoppers.ShopsListActivity">
+    tools:context="com.aman.shoppers.EmployeeListActivity">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Shops List"
-        android:id="@+id/textView"
+        android:text="Salesmen List"
+        android:id="@+id/textView2"
+        android:textAlignment="center"
         android:background="@color/colorPrimary"
         android:textColor="@color/colorWhite"
-        android:textAlignment="center"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -27,11 +27,12 @@
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/shop_listView"
+        android:id="@+id/employee_listView"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/textView"
+        android:layout_below="@+id/textView2"
         android:layout_marginTop="50dp"
         android:clickable="true"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp" />
+
 </RelativeLayout>

@@ -17,8 +17,8 @@ import java.util.ArrayList;
 
 public class EmployeeAdapter extends BaseAdapter implements View.OnClickListener {
     private Activity activity;
-    private ArrayList employeeName;
-    private ArrayList employeeId;
+    private ArrayList employeeName = new ArrayList<>();
+    private ArrayList employeeId = new ArrayList<>();
     private static LayoutInflater inflater = null;
 
     public EmployeeAdapter(Activity a, ArrayList name, ArrayList id) {

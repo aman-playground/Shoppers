@@ -15,8 +15,8 @@ import java.util.ArrayList;
 
 public class ShopAdapter extends BaseAdapter implements View.OnClickListener {
     private Activity activity;
-    private ArrayList shopName;
-    private ArrayList shopId;
+    private ArrayList shopName = new ArrayList<>();
+    private ArrayList shopId = new ArrayList<>();
     private static LayoutInflater inflater = null;
 
     public ShopAdapter(Activity a, ArrayList name, ArrayList id) {
