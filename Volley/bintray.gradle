@@ -13,7 +13,6 @@ buildscript {
 // in the main project build.gradle. This file is "imported" into the project's build.gradle
 // through a "apply from:".
 apply plugin: com.jfrog.bintray.gradle.BintrayPlugin
-apply plugin: 'maven-publish'
 
 project.ext.group = 'com.android.volley'
 project.ext.archivesBaseName = 'volley'
@@ -39,6 +38,8 @@ artifacts {
     archives javadocJar
     archives sourcesJar
 }
+
+apply plugin: 'maven-publish'
 
 publishing {
     publications {
