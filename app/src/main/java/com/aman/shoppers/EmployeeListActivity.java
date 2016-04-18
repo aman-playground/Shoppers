@@ -85,6 +85,9 @@ public class EmployeeListActivity extends AppCompatActivity {
     }
 
     public void didSelectRowAtPosition(int position) {
-
+        String id = employeeId.get(position);
+        Intent intent = new Intent(context, SalesmanStatsActivity.class);
+        intent.putExtra(keys.KEY_SALESMAN_ID, id);
+        startActivity(intent);
     }
 }

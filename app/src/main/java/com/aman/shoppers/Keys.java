@@ -24,6 +24,8 @@ public class Keys {
     public static final int STATUS_SERVER_ERROR = 404;
     public static final int STATUS_NO_DATA = 401;
     public static final String SHARED_USERNAME = "shared_username";
+    public static final String RUPEE_SYMBOL = "₹";
+    public static final int ANIMATION_TIME = 700;
     private Keys() {
     }
 }

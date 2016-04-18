@@ -7,4 +7,7 @@
     <color name="colorWhite">#FFFFFF</color>
     <drawable name="focused">#FFFFFF</drawable>
     <drawable name="selected">#403c3c</drawable>
+    <color name="colorTile1">#ca1a52</color>
+    <color name="colorTile2">#3b3638</color>
+    <color name="colorTile3">#cf5078</color>
 </resources>
