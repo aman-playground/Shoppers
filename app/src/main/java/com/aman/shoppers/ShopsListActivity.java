@@ -33,7 +33,6 @@ public class ShopsListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shops_list);
         shopListView = (ListView) findViewById(R.id.shop_listView);
-        shopListView.setSelector(R.drawable.cell_selector);
         getShopData();
     }
 
