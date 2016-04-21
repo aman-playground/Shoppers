@@ -2,10 +2,14 @@ package com.aman.shoppers;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.animation.Easing;
@@ -28,6 +32,7 @@ public class SalesmanStatsActivity extends AppCompatActivity {
     private ArrayList<Entry> entry = new ArrayList<>();
     private PieDataSet pieDataSet;
     private PieData pieData;
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +45,7 @@ public class SalesmanStatsActivity extends AppCompatActivity {
 
         pieChart.setDescription("");    // Hide the description
         pieChart.getLegend().setEnabled(false);
-
+        sharedPreferences = getSharedPreferences(keys.SHARED_USERNAME, Context.MODE_PRIVATE);
         getData();
     }
 
@@ -75,5 +80,29 @@ public class SalesmanStatsActivity extends AppCompatActivity {
         monthTextView.setText(keys.RUPEE_SYMBOL+Integer.toString(monthSales));
         yearTextView.setText(keys.RUPEE_SYMBOL+Integer.toString(yearSales));
         totalTextView.setText(keys.RUPEE_SYMBOL+Integer.toString(totalSales));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.user_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.profile_item:
+                if (sharedPreferences.contains(keys.KEY_USERNAME)) {
+                    Intent intent = new Intent(context, ProfileActivity.class);
+                    startActivity(intent);
+                }
+                return true;
+            case R.id.logout_item:
+                keys.logout(this, this);
+                return true;
+            default:super.onOptionsItemSelected(item);
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

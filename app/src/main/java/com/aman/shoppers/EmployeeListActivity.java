@@ -2,8 +2,12 @@ package com.aman.shoppers;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -27,12 +31,14 @@ public class EmployeeListActivity extends AppCompatActivity {
     private Context context = EmployeeListActivity.this;
     private ArrayList<String> employeeName = new ArrayList<String>();
     private ArrayList<String> employeeId = new ArrayList<String>();
+    private SharedPreferences sharedPreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employee_list);
         employeeListView = (ListView) findViewById(R.id.employee_listView);
         employeeListView.setSelector(R.drawable.cell_selector);
+        sharedPreferences = getSharedPreferences(keys.SHARED_USERNAME, Context.MODE_PRIVATE);
         getEmployeeData();
     }
 
@@ -89,5 +95,29 @@ public class EmployeeListActivity extends AppCompatActivity {
         Intent intent = new Intent(context, SalesmanStatsActivity.class);
         intent.putExtra(keys.KEY_SALESMAN_ID, id);
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.user_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.profile_item:
+                if (sharedPreferences.contains(keys.KEY_USERNAME)) {
+                    Intent intent = new Intent(context, ProfileActivity.class);
+                    startActivity(intent);
+                }
+                return true;
+            case R.id.logout_item:
+                keys.logout(this, this);
+                return true;
+            default:super.onOptionsItemSelected(item);
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -6,6 +6,9 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -71,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
                         message = "Welcome " + owner;
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString(keys.KEY_USERNAME, user_name);
+                        editor.putString(keys.KEY_OWNER_NAME, owner);
                         editor.commit();
                         Toast.makeText(context, message, Toast.LENGTH_LONG).show();
                         nextScreen();
@@ -94,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
     private void nextScreen() {
         Intent intent = new Intent(context,ShopsListActivity.class);
         startActivity(intent);
+        finish();
     }
 
     private boolean validTextFields() {
@@ -101,4 +106,5 @@ public class MainActivity extends AppCompatActivity {
         password = password_field.getText().toString();
         return (user_name.length() > 0 && password.length() > 0);
     }
+
 }

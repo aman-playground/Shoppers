@@ -19,7 +19,8 @@
         </activity>
         <activity android:name=".ShopsListActivity" />
         <activity android:name=".EmployeeListActivity" />
-        <activity android:name=".SalesmanStatsActivity"></activity>
+        <activity android:name=".SalesmanStatsActivity" />
+        <activity android:name=".ProfileActivity"></activity>
     </application>
 
 </manifest>

@@ -6,6 +6,9 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -28,16 +31,17 @@ public class ShopsListActivity extends AppCompatActivity {
     private Context context = ShopsListActivity.this;
     private ArrayList<String> shopName = new ArrayList<String>();
     private ArrayList<String> shopId = new ArrayList<String>();
+    private SharedPreferences sharedPreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shops_list);
         shopListView = (ListView) findViewById(R.id.shop_listView);
+        sharedPreferences = getSharedPreferences(keys.SHARED_USERNAME, Context.MODE_PRIVATE);
         getShopData();
     }
 
     private void getShopData() {
-        SharedPreferences sharedPreferences = getSharedPreferences(keys.SHARED_USERNAME, Context.MODE_PRIVATE);
         if (sharedPreferences.contains(keys.KEY_USERNAME)) {
             String username = sharedPreferences.getString(keys.KEY_USERNAME, null);
             JSONObject params = new JSONObject();
@@ -91,5 +95,29 @@ public class ShopsListActivity extends AppCompatActivity {
         Intent intent = new Intent(context, EmployeeListActivity.class);
         intent.putExtra(keys.KEY_SHOP_ID, id);
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.user_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.profile_item:
+                if (sharedPreferences.contains(keys.KEY_USERNAME)) {
+                    Intent intent = new Intent(context, ProfileActivity.class);
+                    startActivity(intent);
+                }
+                return true;
+            case R.id.logout_item:
+                keys.logout(this, this);
+                return true;
+            default:super.onOptionsItemSelected(item);
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
