@@ -115,6 +115,7 @@ public class ShopsListActivity extends AppCompatActivity {
                 return true;
             case R.id.logout_item:
                 keys.logout(this, this);
+                finish();
                 return true;
             default:super.onOptionsItemSelected(item);
         }

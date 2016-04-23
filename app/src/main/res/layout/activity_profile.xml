@@ -95,7 +95,9 @@
             android:inputType="textPassword"
             android:ems="10"
             android:id="@+id/old_editText"
-            android:hint="Old Password" />
+            android:hint="Old Password"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp" />
 
         <EditText
             android:layout_width="match_parent"
@@ -103,7 +105,9 @@
             android:inputType="textPassword"
             android:ems="10"
             android:id="@+id/new_editText"
-            android:hint="New Password" />
+            android:hint="New Password"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp" />
 
         <EditText
             android:layout_width="match_parent"
@@ -111,7 +115,9 @@
             android:inputType="textPassword"
             android:ems="10"
             android:id="@+id/renew_editText"
-            android:hint="Re-enter New Password" />
+            android:hint="Re-enter New Password"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp" />
 
         <Button
             style="?borderlessButtonStyle"

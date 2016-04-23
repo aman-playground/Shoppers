@@ -11,12 +11,19 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -27,7 +34,7 @@ public class SalesmanStatsActivity extends AppCompatActivity {
     private ServerClient client  = new ServerClient();
     private Context context = SalesmanStatsActivity.this;
     private TextView monthTextView, yearTextView, totalTextView;
-    private int monthSales = 1000, yearSales = 5000, totalSales = 10000;
+    private int monthSales, yearSales, totalSales;
     private PieChart pieChart;
     private ArrayList<Entry> entry = new ArrayList<>();
     private PieDataSet pieDataSet;
@@ -52,7 +59,39 @@ public class SalesmanStatsActivity extends AppCompatActivity {
     private void getData() {
         Intent intent = getIntent();
         String id = intent.getStringExtra(keys.KEY_SALESMAN_ID);
-        updateChart();
+        JSONObject params = new JSONObject();
+        try {
+            params.put(keys.KEY_SALESMAN_ID,id);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        client.HTTPRequestGET(this, keys.SALESMAN_STATS_URL, params, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    int status = response.getInt("status");
+                    String message;
+                    if (status == keys.STATUS_OK) {
+                        JSONObject data = response.getJSONObject("data");
+                        yearSales = data.getInt("year_sales");
+                        monthSales = data.getInt("month_sales");
+                        totalSales = data.getInt("total_sales");
+                        updateChart();
+                    } else {
+                        message = response.getString("message");
+                        Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     private void updateChart() {
@@ -100,6 +139,7 @@ public class SalesmanStatsActivity extends AppCompatActivity {
                 return true;
             case R.id.logout_item:
                 keys.logout(this, this);
+                finish();
                 return true;
             default:super.onOptionsItemSelected(item);
         }

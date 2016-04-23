@@ -29,8 +29,10 @@ public class MainActivity extends AppCompatActivity {
     private EditText username_field,password_field;
     private static Keys keys = Keys.getInstance();
     private Context context = MainActivity.this;
-    SharedPreferences sharedPreferences;
-    Button login_button;
+    private int role;
+    private String id;
+    private SharedPreferences sharedPreferences;
+    private Button login_button;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +41,11 @@ public class MainActivity extends AppCompatActivity {
         password_field = (EditText) findViewById(R.id.password_textfield);
         login_button = (Button) findViewById(R.id.login_button);
         sharedPreferences = getSharedPreferences(keys.SHARED_USERNAME, Context.MODE_PRIVATE);
+        if (sharedPreferences.contains(keys.KEY_USERNAME)) {
+            role = sharedPreferences.getInt(keys.KEY_ROLE, -1);
+            id = sharedPreferences.getString(keys.KEY_USER_ID, null);
+            nextScreen();
+        }
         buttonListener();
     }
 
@@ -71,10 +78,14 @@ public class MainActivity extends AppCompatActivity {
                     if (status == keys.STATUS_OK) {
                         JSONObject data = response.getJSONObject("data");
                         String owner = data.getString(keys.KEY_OWNER_NAME);
+                        role = data.getInt("user_role");
+                        id = data.getString("user_id");
                         message = "Welcome " + owner;
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString(keys.KEY_USERNAME, user_name);
                         editor.putString(keys.KEY_OWNER_NAME, owner);
+                        editor.putString(keys.KEY_USER_ID, id);
+                        editor.putInt(keys.KEY_ROLE, role);
                         editor.commit();
                         Toast.makeText(context, message, Toast.LENGTH_LONG).show();
                         nextScreen();
@@ -96,9 +107,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void nextScreen() {
-        Intent intent = new Intent(context,ShopsListActivity.class);
-        startActivity(intent);
-        finish();
+        if (role == keys.ROLE_ID_MANAGER) {
+            Intent intent = new Intent(context, ShopsListActivity.class);
+            startActivity(intent);
+            finish();
+        } else {
+            Intent intent = new Intent(context, SalesmanStatsActivity.class);
+            intent.putExtra(keys.KEY_SALESMAN_ID, id);
+            startActivity(intent);
+            finish();
+        }
     }
 
     private boolean validTextFields() {
