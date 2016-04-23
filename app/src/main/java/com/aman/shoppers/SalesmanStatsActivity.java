@@ -73,6 +73,7 @@ public class SalesmanStatsActivity extends AppCompatActivity {
                     int status = response.getInt("status");
                     String message;
                     if (status == keys.STATUS_OK) {
+//                        parsing JSON data
                         JSONObject data = response.getJSONObject("data");
                         yearSales = data.getInt("year_sales");
                         monthSales = data.getInt("month_sales");
@@ -95,6 +96,7 @@ public class SalesmanStatsActivity extends AppCompatActivity {
     }
 
     private void updateChart() {
+//        creating chart based on data parsed
         entry.add(new Entry(monthSales, 0));
         entry.add(new Entry(yearSales, 1));
         entry.add(new Entry(totalSales, 2));

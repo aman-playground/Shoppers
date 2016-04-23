@@ -59,6 +59,7 @@ public class EmployeeListActivity extends AppCompatActivity {
                     int status = response.getInt("status");
                     String message;
                     if (status == keys.STATUS_OK) {
+//                        parsing JSON data
                         JSONObject data = response.getJSONObject("data");
                         JSONArray list = data.getJSONArray("salesman_list");
                         for (int i = 0; i < list.length(); i++) {

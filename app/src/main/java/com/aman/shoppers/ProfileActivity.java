@@ -36,6 +36,7 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+//        Assigning UI elements to vaiables
         nameTextView = (TextView)findViewById(R.id.name_textView);
         usernameTextView = (TextView)findViewById(R.id.user_name_textView);
         oldEditText = (EditText)findViewById(R.id.old_editText);
@@ -71,7 +72,7 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
     }
-
+//  Called when done button is pressed
     private void changePassword() {
         oldPass = oldEditText.getText().toString();
         newPass = newEditText.getText().toString();

@@ -37,10 +37,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+//      Assigning UI elements
         username_field = (EditText) findViewById(R.id.user_name_textfield);
         password_field = (EditText) findViewById(R.id.password_textfield);
         login_button = (Button) findViewById(R.id.login_button);
         sharedPreferences = getSharedPreferences(keys.SHARED_USERNAME, Context.MODE_PRIVATE);
+//        check whether user is already logged in
         if (sharedPreferences.contains(keys.KEY_USERNAME)) {
             role = sharedPreferences.getInt(keys.KEY_ROLE, -1);
             id = sharedPreferences.getString(keys.KEY_USER_ID, null);
@@ -59,8 +61,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loginUser() {
+//        check all entered textfields
         if (!validTextFields())
             return;
+//        Parameters for server call
         JSONObject params = new JSONObject();
         try {
             params.put(keys.KEY_USERNAME,user_name);
@@ -76,11 +80,13 @@ public class MainActivity extends AppCompatActivity {
                     int status = response.getInt("status");
                     String message;
                     if (status == keys.STATUS_OK) {
+//                        parsing JSON data
                         JSONObject data = response.getJSONObject("data");
                         String owner = data.getString(keys.KEY_OWNER_NAME);
                         role = data.getInt("user_role");
                         id = data.getString("user_id");
                         message = "Welcome " + owner;
+//                        storing data in phone memory
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString(keys.KEY_USERNAME, user_name);
                         editor.putString(keys.KEY_OWNER_NAME, owner);
@@ -107,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void nextScreen() {
+//        Go to next screen according to role
         if (role == keys.ROLE_ID_MANAGER) {
             Intent intent = new Intent(context, ShopsListActivity.class);
             startActivity(intent);

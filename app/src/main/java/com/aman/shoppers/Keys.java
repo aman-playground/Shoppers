@@ -14,7 +14,7 @@ public class Keys {
     public static Keys getInstance() {
         return ourInstance;
     }
-
+// Static Keys to be used for flags, storage and server calls
     public static final int ROLE_ID_MANAGER = 1;
     public static final int ROLE_ID_SALESMAN = 2;
     public static final String KEY_ROLE = "role";
@@ -24,7 +24,7 @@ public class Keys {
     public static final String KEY_OLD_PASSWORD = "oldpassword";
     public static final String KEY_NEW_PASSWORD = "newpassword";
     public static final String KEY_RENEW_PASSWORD = "repeatnewpassword";
-    public static final String KEY_OWNER_NAME = "owner_name";
+    public static final String KEY_OWNER_NAME = "user_name";
     public static final String KEY_SHOP_ID = "shop_id";
     public static final String KEY_SHOP_NAME = "shop_name";
     public static final String KEY_SALESMAN_ID = "salesman_id";
@@ -40,7 +40,7 @@ public class Keys {
     public static final int ANIMATION_TIME = 700;
     private Keys() {
     }
-
+//  Logout function
     public void logout(Activity activity, Context context) {
         Intent intent = activity.getBaseContext().getPackageManager().getLaunchIntentForPackage(activity.getBaseContext().getPackageName());
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

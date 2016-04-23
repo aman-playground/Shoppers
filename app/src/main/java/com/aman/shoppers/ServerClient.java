@@ -37,7 +37,7 @@ public class ServerClient {
         String finalURL = baseURL + url;
         return finalURL;
     }
-
+//  Creating url for GET request
     private String urlForGETRequest(String url, JSONObject param) {
         String finalUrl = getAbsoluteURL(url) + "?";
         Iterator<?> keys = param.keys();

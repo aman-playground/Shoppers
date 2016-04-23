@@ -44,6 +44,7 @@ public class ShopsListActivity extends AppCompatActivity {
     private void getShopData() {
         if (sharedPreferences.contains(keys.KEY_USERNAME)) {
             String username = sharedPreferences.getString(keys.KEY_USERNAME, null);
+//            parameters for server call
             JSONObject params = new JSONObject();
             try {
                 params.put(keys.KEY_USERNAME,username);
@@ -58,6 +59,7 @@ public class ShopsListActivity extends AppCompatActivity {
                         int status = response.getInt("status");
                         String message;
                         if (status == keys.STATUS_OK) {
+//                            parsing JSON data
                             JSONObject data = response.getJSONObject("data");
                             JSONArray list = data.getJSONArray("shop_list");
                             for(int i = 0; i < list.length(); i++) {
@@ -86,11 +88,13 @@ public class ShopsListActivity extends AppCompatActivity {
     }
 
     private void setShopData() {
+//        Adapter for listview
         ShopAdapter adapter = new ShopAdapter(this, shopName, shopId);
         shopListView.setAdapter(adapter);
     }
 
     public void didSelectRowAtPosition(int position) {
+//        called when row is tapped
         String id = shopId.get(position);
         Intent intent = new Intent(context, EmployeeListActivity.class);
         intent.putExtra(keys.KEY_SHOP_ID, id);
