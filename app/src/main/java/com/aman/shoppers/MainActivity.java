@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
             id = sharedPreferences.getString(keys.KEY_USER_ID, null);
             nextScreen();
         }
+
         buttonListener();
     }
 

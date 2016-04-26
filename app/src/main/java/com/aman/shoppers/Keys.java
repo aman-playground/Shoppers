@@ -43,7 +43,7 @@ public class Keys {
 //  Logout function
     public void logout(Activity activity, Context context) {
         Intent intent = activity.getBaseContext().getPackageManager().getLaunchIntentForPackage(activity.getBaseContext().getPackageName());
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         context.startActivity(intent);
         SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_USERNAME, Context.MODE_PRIVATE);
         sharedPreferences.edit().clear().commit();

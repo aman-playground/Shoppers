@@ -19,8 +19,8 @@ import java.util.Map;
 
 public class ServerClient {
     private String EmulatorBaseURL = "http://192.168.56.1/android/";
-    private String LocalBaseURL = "http://localhost/android/";
-    private String baseURL = EmulatorBaseURL;
+    private String LocalBaseURL = "http://192.168.43.152/android/";
+    private String baseURL = LocalBaseURL;
 
     public void HTTPRequestGET(Activity activity, String url, JSONObject params, Response.Listener<JSONObject> listner, Response.ErrorListener errorListener) {
         String GETUrl = urlForGETRequest(url, params);
